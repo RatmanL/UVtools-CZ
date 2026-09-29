@@ -336,7 +336,7 @@ public partial class MainWindow : GenericWindow
                     }
                 }
 
-                menuTool.Header = $"_{operation.Title}";
+                menuTool.Header = $"_{Localization.CzechLocalization.Translate(operation.Title)}";
                 menuTool.Click += async (sender, args) => await ShowRunOperation(operation.GetType());
             }
         }
@@ -1513,81 +1513,7 @@ public partial class MainWindow : GenericWindow
     [RelayCommand]
     public async Task MenuNewVersionClicked()
     {
-        var release = AppUpdater.LatestRelease;
-        if (release is null) return;
-        var asset = AppUpdater.GetCompatibleReleaseAsset(release);
-        if (asset is null) return;
-
-        var host = new SukiMessageBoxHost
-        {
-            Header =
-                $"Do you like to update {About.Software} from v{About.VersionString} to v{AppUpdater.LatestReleaseTagVersionStr}?",
-            Content = new MarkdownViewer
-            {
-                Markdown = $"""
-                            ## Changelog:
-
-                            {AppUpdater.GetChangelog()}
-                            """,
-                VerticalAlignment = VerticalAlignment.Stretch,
-                HorizontalAlignment = HorizontalAlignment.Stretch
-            }
-        };
-
-        var autoUpdateButton = SukiMessageBoxButtonsFactory.CreateButton(new MaterialIconText
-            {
-                Kind = MessageWindow.IconButtonDownload,
-                Text = "Auto update"
-            }
-        );
-
-        var manualUpdateButton = SukiMessageBoxButtonsFactory.CreateButton(new MaterialIconText
-            {
-                Kind = MessageWindow.IconButtonOpenBrowser,
-                Text = "Manual update"
-            }
-        );
-
-        var closeBtn = SukiMessageBoxButtonsFactory.CreateButton(SukiMessageBoxResult.Cancel);
-
-        var buttons = string.IsNullOrWhiteSpace(release.HtmlUrl)
-            ? new AvaloniaList<Button>(manualUpdateButton, closeBtn)
-            : new AvaloniaList<Button>(autoUpdateButton, manualUpdateButton, closeBtn);
-
-        host.ActionButtonsSource = buttons;
-
-        var options = SukiMessageBoxUtilities.GetDefaultOptions();
-        options = options with
-        {
-            Title = $"Update UVtools to v{AppUpdater.LatestReleaseTagVersionStr}?"
-        };
-        var result = await SukiMessageBox.ShowDialog(host, options);
-
-        if (ReferenceEquals(result, autoUpdateButton))
-        {
-            IsGUIEnabled = false;
-            try
-            {
-                ShowProgressWindow($"Downloading: {asset.Name}");
-                Progress.Reset("Megabytes", (uint)(asset.Size / 1_000_000));
-                try
-                {
-                    await AppUpdater.DownloadAndInstallUpdateAsync(release, Progress.Token);
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-            finally
-            {
-                IsGUIEnabled = true;
-            }
-        }
-        else if (ReferenceEquals(result, manualUpdateButton))
-        {
-            await HostSystem.OpenUrlAsync(release.HtmlUrl);
-        }
+        await this.MessageBoxInfo("Toto je samostatná neoficiální česká verze UVtools 7.0.0. Aktualizace z původního projektu by nahradila českou verzi anglickou. Aktualizujte ji novým sestavením s překladem.", "Aktualizace české verze");
     }
 
     #endregion
@@ -1611,17 +1537,17 @@ public partial class MainWindow : GenericWindow
     private void UpdateTitle()
     {
         _titleStringBuilder.Clear();
-        _titleStringBuilder.Append($"{About.Software} {About.VersionArch}   ");
+        _titleStringBuilder.Append($"{About.Software} CZ {About.VersionArch}   ");
 
         if (IsFileLoaded)
         {
-            _titleStringBuilder.Append($"File: {SlicerFile!.Filename} ({_loadedFileSizeRepresentation})");
+            _titleStringBuilder.Append($"Soubor: {SlicerFile!.Filename} ({_loadedFileSizeRepresentation})");
         }
 
         _titleStringBuilder.Append($"   RAM: {SizeExtensions.SizeSuffix(Environment.WorkingSet)}");
 
         var threads = IsProgressVisible ? ThreadPool.ThreadCount : 1;
-        _titleStringBuilder.Append($"   Threads: {threads}");
+        _titleStringBuilder.Append($"   Vlákna: {threads}");
 
         if (IsFileLoaded)
         {
@@ -1641,12 +1567,12 @@ public partial class MainWindow : GenericWindow
 
             if (CanSave)
             {
-                _titleStringBuilder.Append("   [UNSAVED]");
+                _titleStringBuilder.Append("   [NEULOŽENO]");
             }
 
             if (SlicerFile!.DecodeType == FileFormat.FileDecodeType.Partial)
             {
-                _titleStringBuilder.Append("   [PARTIAL MODE]");
+                _titleStringBuilder.Append("   [ČÁSTEČNÉ NAČTENÍ]");
             }
         }
 

@@ -72,11 +72,14 @@ public partial class App : Application
 
     public override void Initialize()
     {
+        Localization.CzechLocalization.Install();
         //Styles.Add(ThemeStylesContainer);
         AvaloniaXamlLoader.Load(this);
 
         SetupTheme();
         UserSettings.Load();
+        // This unofficial translation must not replace itself with an English release.
+        UserSettings.Instance.General.CheckForUpdatesOnStartup = false;
         UserSettings.SetVersion();
         
         MarkdownViewerDefaults.Pipeline = new MarkdownPipelineBuilder()

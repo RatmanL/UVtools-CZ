@@ -56,6 +56,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Include="..\translations\cs.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Link="Languages\cs.json" />
         <AvaloniaResource Include="Assets\Icons\*"/>
         <AvaloniaResource Include="Assets\benchmark.png"/>
     </ItemGroup>
