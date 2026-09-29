@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UVtoolsPublishedDir Condition="'$(UVtoolsPublishedDir)' == ''">$(MSBuildThisFileDirectory)../../artifacts/publish/UVtools-CZ-linux-x64</UVtoolsPublishedDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../UVtools.UI/Localization/CzechLocalization.cs" Link="CzechLocalization.cs" />
+    <Reference Include="Avalonia.Base"><HintPath>$(UVtoolsPublishedDir)/Avalonia.Base.dll</HintPath></Reference>
+    <Reference Include="Avalonia.Controls"><HintPath>$(UVtoolsPublishedDir)/Avalonia.Controls.dll</HintPath></Reference>
+    <None Include="$(UVtoolsPublishedDir)/Languages/cs.json" CopyToOutputDirectory="PreserveNewest" Link="Languages/cs.json" />
+  </ItemGroup>
+</Project>
