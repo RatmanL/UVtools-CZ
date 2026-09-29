@@ -152,8 +152,8 @@ public partial class MessageWindow : GenericWindow
         Title = title.Trim();
         TextWrap = textWrap;
         HeaderIcon = headerIcon;
-        HeaderText = headerText?.Trim();
-        MessageText = messageText.Trim();
+        HeaderText = headerText is null ? null : Localization.CzechLocalization.Translate(headerText.Trim());
+        MessageText = Localization.CzechLocalization.Translate(messageText.Trim());
         RenderMarkdown = renderMarkdown;
 
         if (renderMarkdown)
