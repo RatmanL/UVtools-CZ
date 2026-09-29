@@ -201,14 +201,14 @@ public static class CoreSettings
         {
             if (OperatingSystem.IsMacOS())
             {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Library", "Application Support", About.Software);
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Library", "Application Support", About.Software + "-CZ");
             }
 
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             if (string.IsNullOrWhiteSpace(folder)) folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             if (string.IsNullOrWhiteSpace(folder)) folder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             if (string.IsNullOrWhiteSpace(folder)) folder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var path = Path.Combine(folder, About.Software);
+            var path = Path.Combine(folder, About.Software + "-CZ");
             return path;
         }
     }
