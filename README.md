@@ -1,4 +1,15 @@
-# UVtools
+# UVtools CZ — unofficial Czech community preview
+
+**Modified 2026-09-29 for RatmanL, based on upstream UVtools v7.0.0.**
+AI-assisted, incomplete Czech localization; not an official or endorsed UVtools release.
+Distributed under the upstream AGPL license with original attribution retained.
+
+See **[community-edition scope, build instructions, tests and limitations](localization-cs/README.md)**.
+The original upstream README follows. Its badges, downloads, support and donation links refer to the **original project**, not this Czech preview.
+
+---
+
+# UVtools (upstream documentation)
 
 [![License](https://img.shields.io/github/license/sn4k3/UVtools?style=for-the-badge)](https://github.com/sn4k3/UVtools/blob/master/LICENSE)
 [![GitHub repo size](https://img.shields.io/github/repo-size/sn4k3/UVtools?style=for-the-badge)](#)
