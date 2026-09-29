@@ -55,6 +55,9 @@ public static class WindowExtensions
             bool markdown = false,
             bool topMost = false, WindowStartupLocation location = WindowStartupLocation.CenterOwner)
         {
+            message = Localization.CzechLocalization.Translate(message);
+            if (title is not null) title = Localization.CzechLocalization.Translate(title);
+            if (header is not null) header = Localization.CzechLocalization.Translate(header);
             var options = SukiMessageBoxUtilities.GetDefaultOptions();
             options = options with
             {
